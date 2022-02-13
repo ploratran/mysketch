@@ -29,13 +29,13 @@ const mongodbURL = c.url;
   app.use(bodyParser.urlencoded({ extended: true }));
 
   app.use((req, res,next) => {
-    res.header("Access-Control-Allow-Origin", c.url);
+    res.header("Access-Control-Allow-Origin", c.localhost);
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
     next(); 
   });
 
   // use router: 
-  app.use("/v0/", IndexRouter);
+  app.use("/v0", IndexRouter);
 
   // Root URI call
   app.get( "/", async ( req, res ) => {

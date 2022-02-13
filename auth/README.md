@@ -5,6 +5,7 @@ This microservice is responsible for authentication and authorization of the app
 ## How to run server locally:
 
 ```
+npm install
 npm run dev
 ```
 
@@ -26,8 +27,7 @@ npm run dev
 ### Install Dependencies and Dev-Dependencies:
 
 ```
-1. npm install express bcrypt body-parser email-validator jsonwebtoken typescript morgan dotenv -S
-2. npm install mongoose -S
+1. npm install express bcrypt body-parser email-validator jsonwebtoken typescript morgan dotenv mongoose -S
 3. npm install nodemon ts-node-dev @types/morgan @types/mongoose -D
 4. npm install @types/bcrypt @types/express @types/jsonwebtoken @types/node @types/validator -D
 ```

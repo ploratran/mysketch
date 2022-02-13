@@ -5,8 +5,4 @@ const router: Router = Router();
 
 router.use("/auth", AuthRouter); 
 
-router.get("/", async (req: Request, res: Response) => {
-    
-});
-
 export { router as UserRouter }
