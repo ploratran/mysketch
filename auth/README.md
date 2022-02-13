@@ -1,10 +1,27 @@
-# Authentication Microservice Server
+# Authentication Microservice
+
+This microservice is responsible for authentication and authorization of the application.
 
 ## How to run server locally:
 
 ```
 npm run dev
 ```
+
+## API Endpoints:
+
+| **Method** | **endpoint**                                 | **function**       |
+| ---------- | -------------------------------------------- | ------------------ |
+| **POST**   | http://localhost:5000/v0/users/auth/register | Register new user  |
+| **POST**   | http://localhost:5000/v0/users/auth/login    | Login current user |
+
+### JWT Mechanism:
+
+<image src="../public/jwt.png">
+
+### MERN Stack:
+
+<image src="../public/mern.png">
 
 ### Install Dependencies and Dev-Dependencies:
 
@@ -36,19 +53,6 @@ npm run dev
 - db.<collection>.find().pretty(): print all data
 - cls: clear terminal
 ```
-
-### JWT Mechanism:
-
-<image src="../public/jwt.png">
-
-### API Endpoints:
-
-## API Endpoints:
-
-| **Method** | **endpoint**                                 | **function**       |
-| ---------- | -------------------------------------------- | ------------------ |
-| **POST**   | http://localhost:5000/v0/users/auth/register | Register new user  |
-| **POST**   | http://localhost:5000/v0/users/auth/login    | Login current user |
 
 #### Reference:
 
