@@ -1,7 +1,3 @@
-# Authentication Microservice
+# mysketch-io
 
-This microservice is responsible for authentication and authorization of the application.
-
-### MERN Stack:
-
-<image src="public/mern.png">
+## A photo-sharing app
