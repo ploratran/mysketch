@@ -4,4 +4,4 @@ This microservice is responsible for authentication and authorization of the app
 
 ### MERN Stack:
 
-<image src="./auth/public/mern.png">
+<image src="public/mern.png">

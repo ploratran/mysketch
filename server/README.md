@@ -45,10 +45,10 @@ npm run dev
 
 ## API Endpoints:
 
-| **Method** | **endpoint** |
-| ---------- | ------------ |
-| **GET**    |              |
-| **POST**   |              |
+| **Method** | **endpoint**                                 | **function**       |
+| ---------- | -------------------------------------------- | ------------------ |
+| **POST**   | http://localhost:5000/v0/users/auth/register | Register new user  |
+| **POST**   | http://localhost:5000/v0/users/auth/login    | Login current user |
 
 #### Reference:
 
