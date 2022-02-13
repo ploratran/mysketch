@@ -30,7 +30,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/v0/users/auth/signup",
+					"raw": "http://localhost:5000/v0/users/auth/register",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -40,7 +40,80 @@
 						"v0",
 						"users",
 						"auth",
-						"signup"
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"mimitran0129\", \n    \"password\": \"Quenpasswordhoai99@\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/v0/users/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"v0",
+						"users",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "JWT Auth Verification",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOissdfJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYyMDJmNWYyMmZlMjdkNjBmOWQyNzI4NiIsImVtYWlsIjoibWltaXRyYW4wMTI5QGdtYWlsLmNvbSIsInVzZXJuYW1lIjoibWltaXRyYW4wMTI5IiwicGFzc3dvcmQiOiIkMmIkMTAkbEJGdS9KcFJhOVRwUUtFZnRTTWFrZTdlazF3N2UuSTU3eTR0UFVaekUyUmlGbTBJWmZOYU8iLCJfX3YiOjB9LCJpYXQiOjE2NDQzNjE3OTl9.XiDllih6_OA05cu5hnpfOnFcty89X044dBd7UEGZn38",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/v0/users/auth/verification",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"v0",
+						"users",
+						"auth",
+						"verification"
 					]
 				}
 			},

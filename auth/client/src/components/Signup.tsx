@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Segment, Grid, Header, Message, Form, Button } from 'semantic-ui-react';
 import { Link } from "react-router-dom";
-import { Formik } from "formik"; 
+import { Formik, useFormik } from "formik"; 
 import * as Yup from "yup"; 
-import { Input } from "formik-semantic-ui-react";
+import { Input, SubmitButton } from "formik-semantic-ui-react";
+import axios from "axios"; 
+import { register } from "../api/auth-api";
 
 interface FormValues {
   email: string,
   username: string, 
   password: string,
-  cpassword: string,
+  // cpassword: string,
 }
 
 const Signup: React.FC<{}> = () => {
@@ -18,7 +21,7 @@ const Signup: React.FC<{}> = () => {
     email: '',
     username: '',
     password: '',
-    cpassword: '',
+    // cpassword: '',
   };
 
   const signupSchema = Yup.object().shape({
@@ -35,9 +38,50 @@ const Signup: React.FC<{}> = () => {
         /^^[0-9A-Za-z]*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?][0-9a-zA-Z]*$/,
         "Must contains one Uppercase, one Lowercase, one Number and one Special Character"
       ),
-    cpassword: Yup.string()
-      .oneOf([Yup.ref("password"), null], "Passwords must match")
-      .required("Confirm password is required"),
+    // cpassword: Yup.string()
+    //   .oneOf([Yup.ref("password"), null], "Passwords must match")
+    //   .required("Confirm password is required"),
+  });
+
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState(""); 
+  const navigate = useNavigate();
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value); 
+  };
+
+  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUsername(e.target.value); 
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value); 
+  };
+
+  // use with Formik onSubmit()
+  // const handleSubmit = async (e: any) => {
+  //   e.preventDefault(); 
+
+  //   try {
+  //     const newUser = { email, username, password };
+  //     await axios.post("http://localhost:5000/users/register", newUser);
+  //     console.log(newUser); 
+  //     navigate("/");
+  //   } catch (e) {
+  //     alert('Cold not create new user!');
+  //   }
+  // };
+
+  const onSubmit = (values: any) => {
+    alert(JSON.stringify(values)); 
+  }
+
+  const formik = useFormik({
+    initialValues, 
+    validationSchema: signupSchema,
+    onSubmit,
   });
 
   return (
@@ -53,9 +97,9 @@ const Signup: React.FC<{}> = () => {
       <Formik
         initialValues={initialValues}
         validationSchema={signupSchema}
-        onSubmit={values => 
-          console.log(values)
-        } 
+        onSubmit={(values: any) => {
+          alert(JSON.stringify(values)); 
+        }}
       > 
         <Form size='large'>
           <Segment stacked>
@@ -66,6 +110,8 @@ const Signup: React.FC<{}> = () => {
               placeholder='E-mail address' 
               name="email"
               errorPrompt 
+              onChange={handleEmailChange}
+              value={email}
             />  
             <Input 
               fluid
@@ -74,6 +120,8 @@ const Signup: React.FC<{}> = () => {
               placeholder='username'
               name="username"
               errorPrompt
+              onChange={handleUsernameChange}
+              value={username}
             />
             <Input
               fluid
@@ -83,8 +131,10 @@ const Signup: React.FC<{}> = () => {
               type='password'
               name="password"
               errorPrompt
+              onChange={handlePasswordChange}
+              value={password}
             />
-            <Input
+            {/* <Input
               fluid
               icon='lock'
               iconPosition='left'
@@ -92,9 +142,9 @@ const Signup: React.FC<{}> = () => {
               type='password'
               name="cpassword"
               errorPrompt
-            />
+            /> */}
             
-            <Button type="submit" color='teal' fluid size='large'>
+            <Button type="submit" color='teal' fluid size='large' >
               Signup
             </Button>
           </Segment>
