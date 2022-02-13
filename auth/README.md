@@ -5,6 +5,7 @@ This microservice is responsible for authentication and authorization of the app
 ## How to run server locally:
 
 ```
+npm install
 npm run dev
 ```
 

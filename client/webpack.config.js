@@ -22,6 +22,7 @@ const config = {
         static: path.join(__dirname, "build"),
         compress: true,
         port: 4000,
+        historyApiFallback: true, 
     },
     resolve: {
         extensions: [".ts", ".tsx", ".js", ".jsx"],
