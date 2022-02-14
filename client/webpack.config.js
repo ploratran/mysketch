@@ -46,19 +46,28 @@ const config = {
             }, 
             {
                 use: [MiniCssExtractPlugin.loader, "style-loader","css-loader"],// order comes from right to left
-                test: /\.css$/
+                test: /\.css$/i
             }, 
+            // {
+            //     test: /\.(jpe?g|png|gif|woff|woff2|otf|eot|ttf|svg)(\?[a-z0-9=.]+)?$/,
+            //     use: [
+            //         {
+            //             loader: 'url-loader',
+            //             options: {
+            //                 limit: 1000,
+            //                 name : 'assets/img/[name].[ext]'
+            //             }
+            //         }
+            //     ]
+            // }, 
             {
-                test: /\.(jpe?g|png|gif|svg)$/, 
-                use: [
-                    'url-loader', 
-                    'image-webpack-loader'
-                ]
+                test: /\.(png|woff|woff2|eot|}ttf|svg)$/,
+                use: [{ loader: 'url-loader', options: { limit: 100000 } }],
             }
         ]
     },
     plugins: [
-        new MiniCssExtractPlugin(), // tells mini-css-extract-plugin to find files that are transformed from css-loader
+        new MiniCssExtractPlugin({ filename: "./node_modules/semantic-ui-css/semantic.min.css" }), // tells mini-css-extract-plugin to find files that are transformed from css-loader
         new HtmlWebpackPlugin({
             template: 'public/index.html'
         })

@@ -1,6 +1,6 @@
 import React from 'react'; 
-import StickyHeader from "./Header"; 
-import HomeContent from './Feed';
+import StickyHeader from "./StickyHeader"; 
+import HomeContent from './HomeContent';
 
 export default function Home() {
     return (
