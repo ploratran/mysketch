@@ -11,15 +11,10 @@ export default function SuggestedUser() {
         <Feed.Content>
             <Feed.Summary>
             <Feed.User>Elliot Fu</Feed.User>
-            {/* <Button style={{ backgroundColor: "transparent", color: "#4183C4", fontSize : "11px" }}>
-                +Follow
-            </Button> */}
+            <Button style={{ backgroundColor: "transparent", color: "#4183C4", fontSize : "12px" }}>
+                + Follow
+            </Button>
             </Feed.Summary>
-            <Feed.Meta>
-            <Feed.Like>
-                New to mysketch.io
-            </Feed.Like>
-            </Feed.Meta>
         </Feed.Content>
         </Feed.Event>
     </Feed>

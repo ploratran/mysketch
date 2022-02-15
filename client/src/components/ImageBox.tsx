@@ -1,5 +1,5 @@
 import React from "react"; 
-import { Card, Image, Icon } from "semantic-ui-react"; 
+import { Card, Image, Form, Input, Feed, Segment, Divider, Icon } from "semantic-ui-react"; 
 
 const Paragraph = () => (
     <p>
@@ -18,31 +18,42 @@ const Paragraph = () => (
 
 
 const CardExampleImageCard = () => (
-  <Card>
-    <Image src='https://react.semantic-ui.com/images/avatar/large/daniel.jpg' />
-    <Card.Content>
-      <Card.Header>Daniel</Card.Header>
-      <Card.Meta>Joined in 2016</Card.Meta>
-      <Card.Description>
-        Daniel is a comedian living in Nashville.
-      </Card.Description>
-    </Card.Content>
-    <Card.Content extra>
-      <a>
-        <Icon name='user' />
-        10 Friends
-      </a>
-    </Card.Content>
-  </Card>
+  <Segment>
+    <Feed>
+      <Feed.Event>
+        <Feed.Label>
+          <img src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
+        </Feed.Label>
+        <Feed.Content>
+          <Feed.Summary>
+            <Feed.User style={{color:"black"}}>username</Feed.User>
+          </Feed.Summary>
+        </Feed.Content>
+      </Feed.Event>
+    </Feed>
+
+    <Card centered size='huge' style={{ border: "solid" }} >
+      <Image src={'https://react.semantic-ui.com/images/avatar/large/daniel.jpg'} />
+     
+    </Card>
+  
+  <Divider />
+  
+    <Form>
+      <Form.Field>
+        <Input action='Post' placeholder='Add a comment ...' />
+      </Form.Field>
+    </Form>
+  </Segment>
 )
 
 export default function HomeContent() {
     return (
       <div>
         <CardExampleImageCard />
-        <Paragraph />
-        <Paragraph />
-        <Paragraph />
+        <CardExampleImageCard />
+        <CardExampleImageCard />
+        <CardExampleImageCard />
         <Paragraph />
       </div>
 

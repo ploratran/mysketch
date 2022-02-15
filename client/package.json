@@ -1,7 +1,7 @@
 {
-  "name": "auth-client",
+  "name": "client",
   "version": "1.0.0",
-  "description": "Authentication Microservice Frontend",
+  "description": "Frontend",
   "main": "index.js",
   "scripts": {
     "clean": "rimraf build",

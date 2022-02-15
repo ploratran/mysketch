@@ -16,7 +16,7 @@ export default function Home() {
                         <ImageBox />
                     </Grid.Column>
 
-                    <Grid.Column width={6}>
+                    <Grid.Column width={5}>
                         <Suggestions />
                     </Grid.Column>
                 </Grid>
