@@ -11,12 +11,12 @@ export default function Home() {
             <Container text style={{ marginTop: '7em' }}>
                 <StickyHeader />
             </Container>
-                <Grid container stackable verticalAlign='middle'>
+                <Grid container stackable>
                     <Grid.Column width={10}>
                         <ImageBox />
                     </Grid.Column>
 
-                    <Grid.Column width={6}  float="right">
+                    <Grid.Column width={6}>
                         <Suggestions />
                     </Grid.Column>
                 </Grid>

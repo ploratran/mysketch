@@ -4,7 +4,7 @@ import { Menu, Dropdown, Container, Icon, Search, Grid } from "semantic-ui-react
 
 export default function StickyHeader() {
     return (
-        <Menu fixed="top" borderless>
+        <Menu fixed="top" borderless stackable>
             <Container text> 
                 <Menu.Menu position="left">
                     <Menu.Item header as="a">
@@ -17,7 +17,6 @@ export default function StickyHeader() {
                 </Menu.Menu>
 
                 <Menu.Menu position="right">
-                    
                     <Menu.Item as="a">
                         <Icon name='home' size='large' />
                     </Menu.Item>
@@ -32,11 +31,12 @@ export default function StickyHeader() {
                         <Dropdown.Menu>
                             <Dropdown.Item>
                                 <Icon name='user circle' />
+                                Profile
                             </Dropdown.Item>
 
                             <Dropdown.Divider />
 
-                            <Dropdown.Item>
+                            <Dropdown.Item icon={{ name: 'remove'}}>
                                 Logout
                             </Dropdown.Item>
                         </Dropdown.Menu>
