@@ -11,16 +11,16 @@ export default function Home() {
             <Container text style={{ marginTop: '7em' }}>
                 <StickyHeader />
             </Container>
-                <Grid container stackable>
-                    <Grid.Column width={10}>
-                        <ImageBox />
-                    </Grid.Column>
+            
+            <Grid container stackable>
+                <Grid.Column width={9}>
+                    <ImageBox />
+                </Grid.Column>
 
-                    <Grid.Column width={5}>
-                        <Suggestions />
-                    </Grid.Column>
-                </Grid>
-
+                <Grid.Column width={5} style={{border: "solid"}}>
+                    <Suggestions />
+                </Grid.Column>
+            </Grid>
         </div>
     );
 };

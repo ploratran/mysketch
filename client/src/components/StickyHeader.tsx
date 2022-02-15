@@ -1,10 +1,10 @@
 // sticky header includes Home button, search bar, profile, upload, feed, messenger buttons
 import React from "react";
-import { Menu, Dropdown, Container, Icon, Search, Grid } from "semantic-ui-react";
+import { Menu, Dropdown, Container, Icon, Search } from "semantic-ui-react";
 
 export default function StickyHeader() {
     return (
-        <Menu fixed="top" borderless stackable>
+        <Menu fixed="top" borderless>
             <Container text> 
                 <Menu.Menu position="left">
                     <Menu.Item header as="a">

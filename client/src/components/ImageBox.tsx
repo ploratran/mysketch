@@ -1,5 +1,5 @@
 import React from "react"; 
-import { Card, Image, Form, Input, Feed, Segment, Divider, Icon } from "semantic-ui-react"; 
+import { Card, Image, Form, Input, Feed, Segment, Divider, Button } from "semantic-ui-react"; 
 
 const Paragraph = () => (
     <p>
@@ -19,6 +19,7 @@ const Paragraph = () => (
 
 const CardExampleImageCard = () => (
   <Segment>
+
     <Feed>
       <Feed.Event>
         <Feed.Label>
@@ -32,18 +33,56 @@ const CardExampleImageCard = () => (
       </Feed.Event>
     </Feed>
 
-    <Card centered size='huge' style={{ border: "solid" }} >
-      <Image src={'https://react.semantic-ui.com/images/avatar/large/daniel.jpg'} />
-     
-    </Card>
+    <Image fluid 
+      src={'https://react.semantic-ui.com/images/avatar/large/daniel.jpg'} 
+    />
+
+    <Button circular  icon='heart outline' size="huge" style={{ backgroundColor: "transparent", margin: "0" }}/>
+    <Button circular icon='comment outline' size="huge" style={{ backgroundColor: "transparent" }}/>
+    <Button circular icon='share square outline' size="huge" style={{ backgroundColor: "transparent" }}/>    
+
+    <Feed>
+      <Feed.Meta>
+      <Feed.Like style={{ color: "black", fontWeight: "bold" }}>
+        8 Likes
+      </Feed.Like>
+      </Feed.Meta>
+    </Feed>
+
+    <Feed>
+      <Feed.Event>
+        <Feed.Content>
+          <Feed.Summary>
+            <Feed.User style={{color:"black"}}>username</Feed.User> 
+          </Feed.Summary>
+          <Feed.Extra text>
+            Ours is a life of constant reruns. We're always circling back to where
+            we'd we started, then starting all over again. Even if we don't run
+            extra laps that day, we surely will come back for more of the same
+            another day soon.
+          </Feed.Extra>
+        </Feed.Content>
+      </Feed.Event>
+    </Feed>
+
+    <Feed>
+      <Feed.Event>
+        <Feed.Content>
+          <Feed.Summary>
+            <Feed.Date>3 days ago</Feed.Date>
+          </Feed.Summary>
+        </Feed.Content>
+      </Feed.Event>
+    </Feed>
   
-  <Divider />
+    <Divider />
   
     <Form>
       <Form.Field>
         <Input action='Post' placeholder='Add a comment ...' />
       </Form.Field>
     </Form>
+
   </Segment>
 )
 
