@@ -48,3 +48,4 @@
 1. https://stackoverflow.com/questions/62078851/yup-validate-password-contains-at-least-one-special-character
 2. https://codesandbox.io/s/login-form-ftqwx?file=/src/LoginForm.tsx
 3. https://codesandbox.io/s/l2r832l8x7?file=/src/index.js
+4. How to use Formik with Semantic UI and React: [formik-semantic-ui-react](https://github.com/JT501/formik-semantic-ui-react)
