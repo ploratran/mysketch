@@ -1,8 +1,8 @@
 import React from 'react'; 
 import { Container, Grid } from "semantic-ui-react"; 
-import StickyHeader from "./StickyHeader"; 
-import ImageBox from './ImageBox';
-import Suggestions from './Suggestions'; 
+import StickyHeader from "./feed/sticky-header/StickyHeader"; 
+import ImageBox from './feed/image-card/ImageBox';
+import Suggestions from './feed/suggestion/Suggestions'; 
 
 export default function Home() {
 
@@ -17,7 +17,7 @@ export default function Home() {
                     <ImageBox />
                 </Grid.Column>
 
-                <Grid.Column width={5} style={{border: "solid"}}>
+                <Grid.Column width={5}>
                     <Suggestions />
                 </Grid.Column>
             </Grid>

@@ -6,7 +6,7 @@ import { Formik, useFormik } from "formik";
 import * as Yup from "yup"; 
 import { Input, SubmitButton } from "formik-semantic-ui-react";
 import axios from "axios"; 
-import { register } from "../api/auth-api";
+import { register } from "../../api/auth-api";
 
 interface FormValues {
   email: string,
