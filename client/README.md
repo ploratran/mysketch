@@ -21,10 +21,10 @@
 6. npm install --save-dev ts-loader ts-node
 7. npm install --save-dev @types/react @types/react-dom @types/webpack @types/node @types/react-router-dom
 8. npm install --save-dev nodemon rimraf
-9. npm install axios babel-cli babel-preset-react-app
+9. npm install axios babel-cli babel-preset-react-app source-map-loader
 10.npm install semantic-ui-react semantic-ui-css
 11. npm install babel-cli babel-preset-react-app
-12. npm install react react-dom axios typescript
+12. npm install react react-dom typescript
 13. npm install formik yup
 ```
 

@@ -1,5 +1,5 @@
 import React from "react"; 
-import { Form, Input, Feed, Segment, Divider } from "semantic-ui-react"; 
+import { Segment, Divider } from "semantic-ui-react"; 
 import ItemUser from "./ItemUser";
 import ItemImage from "./ItemImage";
 import ItemLikes from "./ItemLikes";
@@ -7,34 +7,36 @@ import ItemComments from "./ItemComments";
 import ItemTiming from "./ItemTiming";
 import ItemInputComment from "./ItemInputComment";
 
-const CardExampleImageCard = () => (
-  <Segment>
+const ItemCard = () => {
+  return (
+    <Segment>
 
-    <ItemUser />
+      <ItemUser />
 
-    <ItemImage />
+      <ItemImage />
 
-    <ItemLikes />
+      <ItemLikes />
 
-    <ItemComments />
+      <ItemComments />
 
-    <ItemTiming />
+      <ItemTiming />
 
-    <Divider />
+      <Divider />
 
-    <ItemInputComment />
-  
+      <ItemInputComment />
 
-  </Segment>
-)
+
+    </Segment>
+  );
+}
 
 export default function HomeContent() {
     return (
       <div>
-        <CardExampleImageCard />
-        <CardExampleImageCard />
-        <CardExampleImageCard />
-        <CardExampleImageCard />
+        <ItemCard />
+        <ItemCard />
+        <ItemCard />
+        <ItemCard />
       </div>
 
     )

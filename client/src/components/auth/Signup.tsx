@@ -17,32 +17,6 @@ interface FormValues {
 
 const Signup: React.FC<{}> = () => {
 
-  const initialValues: FormValues = {
-    email: '',
-    username: '',
-    password: '',
-    // cpassword: '',
-  };
-
-  const signupSchema = Yup.object().shape({
-    email: Yup.string()
-      .email("Invalid email address")
-      .required("Email required"),
-    username: Yup.string()
-      .min(6, "Must be at least 6 characters")
-      .required("Username required"),
-    password: Yup.string()
-      .min(8, "Must be at least 8 characters")
-      .required("Password required")
-      .matches(
-        /^^[0-9A-Za-z]*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?][0-9a-zA-Z]*$/,
-        "Must contains one Uppercase, one Lowercase, one Number and one Special Character"
-      ),
-    // cpassword: Yup.string()
-    //   .oneOf([Yup.ref("password"), null], "Passwords must match")
-    //   .required("Confirm password is required"),
-  });
-
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState(""); 
@@ -77,6 +51,32 @@ const Signup: React.FC<{}> = () => {
   const onSubmit = (values: any) => {
     alert(JSON.stringify(values)); 
   }
+
+  const initialValues: FormValues = {
+    email: '',
+    username: '',
+    password: '',
+    // cpassword: '',
+  };
+
+  const signupSchema = Yup.object().shape({
+    email: Yup.string()
+      .email("Invalid email address")
+      .required("Email required"),
+    username: Yup.string()
+      .min(6, "Must be at least 6 characters")
+      .required("Username required"),
+    password: Yup.string()
+      .min(8, "Must be at least 8 characters")
+      .required("Password required")
+      .matches(
+        /^^[0-9A-Za-z]*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?][0-9a-zA-Z]*$/,
+        "Must contains one Uppercase, one Lowercase, one Number and one Special Character"
+      ),
+    // cpassword: Yup.string()
+    //   .oneOf([Yup.ref("password"), null], "Passwords must match")
+    //   .required("Confirm password is required"),
+  });
 
   const formik = useFormik({
     initialValues, 
