@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { Segment, Grid, Header, Message, Form, Button } from 'semantic-ui-react';
+import { Segment, Grid, Header, Message, Button } from 'semantic-ui-react';
 import { Link } from "react-router-dom";
-import { Formik, useFormik } from "formik"; 
+import { Formik, useFormik, FormikHelpers, Field } from "formik"; 
 import * as Yup from "yup"; 
-import { Input, SubmitButton } from "formik-semantic-ui-react";
+import { Form, Input, SubmitButton, ResetButton } from 'formik-semantic-ui-react';
 import axios from "axios"; 
 import { register } from "../../api/auth-api";
 
@@ -16,41 +16,6 @@ interface FormValues {
 }
 
 const Signup: React.FC<{}> = () => {
-
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState(""); 
-  const navigate = useNavigate();
-
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value); 
-  };
-
-  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUsername(e.target.value); 
-  };
-
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value); 
-  };
-
-  // use with Formik onSubmit()
-  // const handleSubmit = async (e: any) => {
-  //   e.preventDefault(); 
-
-  //   try {
-  //     const newUser = { email, username, password };
-  //     await axios.post("http://localhost:5000/users/register", newUser);
-  //     console.log(newUser); 
-  //     navigate("/");
-  //   } catch (e) {
-  //     alert('Cold not create new user!');
-  //   }
-  // };
-
-  const onSubmit = (values: any) => {
-    alert(JSON.stringify(values)); 
-  }
 
   const initialValues: FormValues = {
     email: '',
@@ -78,86 +43,138 @@ const Signup: React.FC<{}> = () => {
     //   .required("Confirm password is required"),
   });
 
+  const handleOnSubmit = (values: FormValues, { setSubmitting }: FormikHelpers<FormValues>) => {
+    console.log({ values, setSubmitting }); 
+    setTimeout(() => setSubmitting(false), 2000);
+  }
+
   const formik = useFormik({
     initialValues, 
     validationSchema: signupSchema,
-    onSubmit,
+    onSubmit: handleOnSubmit,
   });
 
+  const setInputValue = useCallback(
+    (key, value) => 
+      formik.setValues({
+        ...formik.values, 
+        [key]: value,
+      }),
+    [formik]
+  );
+
   return (
-    <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
-    <Grid.Column style={{ maxWidth: 450 }}>
-      <Header as='h1' color='teal' textAlign='center'>
-         mysketch.io
-      </Header>
-      <Header color='teal'>
-        Sign up to see photos and videos from your friends
-      </Header>
-        
+    <div>
       <Formik
         initialValues={initialValues}
-        validationSchema={signupSchema}
-        onSubmit={(values: any) => {
-          alert(JSON.stringify(values)); 
-        }}
-      > 
-        <Form size='large'>
-          <Segment stacked>
-            <Input
-              fluid icon='mail' 
-              type="emai"
-              iconPosition='left' 
-              placeholder='E-mail address' 
-              name="email"
-              errorPrompt 
-              onChange={handleEmailChange}
-              value={email}
-            />  
-            <Input 
-              fluid
-              icon='user'
-              iconPosition='left'
-              placeholder='username'
-              name="username"
-              errorPrompt
-              onChange={handleUsernameChange}
-              value={username}
-            />
-            <Input
-              fluid
-              icon='lock'
-              iconPosition='left'
-              placeholder='Password'
-              type='password'
-              name="password"
-              errorPrompt
-              onChange={handlePasswordChange}
-              value={password}
-            />
-            {/* <Input
-              fluid
-              icon='lock'
-              iconPosition='left'
-              placeholder='Confirmed Password'
-              type='password'
-              name="cpassword"
-              errorPrompt
-            /> */}
-            
-            <Button type="submit" color='teal' fluid size='large' >
-              Signup
-            </Button>
-          </Segment>
+        onSubmit={handleOnSubmit}
+      >
+        <Form size="large">
+          <Input
+            name="email"
+            placeholder="Email"
+            errorPrompt
+          />
+          <Input
+            name="password"
+            type="password"
+            placeholder="Password"
+            errorPrompt
+          />
+          <SubmitButton fluid primary>
+            Login
+          </SubmitButton>
+          <ResetButton fluid secondary>
+            Reset
+          </ResetButton>
         </Form>
       </Formik>
+    </div>
+  );
 
-      <Message>
-        Have an account? <Link to="/">Log in</Link>
-      </Message>
+  // return (
+  //   <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+  //     <Grid.Column style={{ maxWidth: 450 }}>
+  //       <Header as='h1' color='teal' textAlign='center'>
+  //         mysketch.io
+  //       </Header>
+  //       <Header color='teal'>
+  //         Sign up to see photos and videos from your friends
+  //       </Header>
+          
+  //       <Formik
+  //         initialValues={initialValues}
+  //         validationSchema={signupSchema}
+  //         onSubmit={handleOnSubmit}
+  //       > 
+  //         <Form size='large'>
+  //           <Segment stacked>
 
-    </Grid.Column>
-  </Grid>
-  )
+  //             <Field
+  //               fluid icon='mail' 
+  //               type="emai"
+  //               iconPosition='left' 
+  //               placeholder='E-mail address' 
+  //               name="email"
+  //               errorPrompt 
+  //               onChange={(
+  //                 e: React.ChangeEvent<HTMLInputElement>) => setInputValue("email", e.target.value
+  //               )}
+  //               value={formik.values.email}
+  //             />  
+  //             <Input 
+  //               fluid
+  //               icon='user'
+  //               iconPosition='left'
+  //               placeholder='username'
+  //               name="username"
+  //               errorPrompt
+  //               onChange={(
+  //                 e: React.ChangeEvent<HTMLInputElement>) => setInputValue("username", e.target.value
+  //               )}
+  //               value={formik.values.username}
+  //             />
+  //             <Input
+  //               fluid
+  //               icon='lock'
+  //               iconPosition='left'
+  //               placeholder='Password'
+  //               type='password'
+  //               name="password"
+  //               errorPrompt
+  //               onChange={(
+  //                 e: React.ChangeEvent<HTMLInputElement>) => setInputValue("password", e.target.value
+  //               )}
+  //               value={formik.values.password}
+  //             />
+  //             {/* <Input
+  //               fluid
+  //               icon='lock'
+  //               iconPosition='left'
+  //               placeholder='Confirmed Password'
+  //               type='password'
+  //               name="cpassword"
+  //               errorPrompt
+  //               onChange={(
+  //                 e: React.ChangeEvent<HTMLInputElement>) => setInputValue("cpassword", e.target.value
+  //               )}
+  //               value={formik.values.cpassword}
+  //             /> */}
+              
+  //             <Button type="submit" disabled={!formik.isValid} color='teal' fluid size='large' >
+  //               Signup
+  //             </Button>
+  //           </Segment>
+  //         </Form>
+  //       </Formik>
+
+  //       <Message>
+  //         Have an account? <Link to="/">Log in</Link>
+  //       </Message>
+
+  //     </Grid.Column>
+  //   </Grid>
+  // )
 };
 
 export default Signup; 
