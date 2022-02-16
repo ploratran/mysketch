@@ -21,10 +21,10 @@
 6. npm install --save-dev ts-loader ts-node
 7. npm install --save-dev @types/react @types/react-dom @types/webpack @types/node @types/react-router-dom
 8. npm install --save-dev nodemon rimraf
-9. npm install axios babel-cli babel-preset-react-app
+9. npm install axios babel-cli babel-preset-react-app source-map-loader
 10.npm install semantic-ui-react semantic-ui-css
 11. npm install babel-cli babel-preset-react-app
-12. npm install react react-dom axios typescript
+12. npm install react react-dom typescript
 13. npm install formik yup
 ```
 
@@ -48,3 +48,4 @@
 1. https://stackoverflow.com/questions/62078851/yup-validate-password-contains-at-least-one-special-character
 2. https://codesandbox.io/s/login-form-ftqwx?file=/src/LoginForm.tsx
 3. https://codesandbox.io/s/l2r832l8x7?file=/src/index.js
+4. How to use Formik with Semantic UI and React: [formik-semantic-ui-react](https://github.com/JT501/formik-semantic-ui-react)

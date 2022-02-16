@@ -10,7 +10,7 @@ const c = config.dev;
 const mongodbURL = c.url;
 
 (async () => {
-  mongoose.connect(mongodbURL, {
+  mongoose.connect("mongodb://localhost:27017/userdb", {
     useNewUrlParser: true,
     useUnifiedTopology:true,
   } as ConnectOptions)
