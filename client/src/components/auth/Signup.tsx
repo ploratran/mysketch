@@ -2,7 +2,7 @@ import React, { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { Segment, Grid, Header, Message } from 'semantic-ui-react';
 import { Link } from "react-router-dom";
-import { Formik, FormikHelpers } from "formik"; 
+import { Formik,FormikHelpers } from "formik"; 
 import * as Yup from "yup"; 
 import { Form, Input, SubmitButton } from 'formik-semantic-ui-react';
 import axios from "axios"; 
@@ -48,26 +48,11 @@ const Signup: React.FC<{}> = () => {
   const [password, setPassword] = useState(""); 
   const navigate = useNavigate();
 
-  const handleOnSubmit = async (values: FormValues, { setSubmitting }: FormikHelpers<FormValues>) => {
-    console.log({ values, setSubmitting }); 
-
-    try {
-      const newUser = { values };
-      await axios.post("http://localhost:5000/users/register", newUser);
-      console.log(newUser); 
-      navigate("/");
-    } catch (e) {
-      alert('Cold not create new user!');
-    }
-
-    setTimeout(() => setSubmitting(false), 2000);
-  }
-  // use with Formik onSubmit()
-  // const handleSubmit = async (e: any) => {
-  //   e.preventDefault(); 
+  // const handleOnSubmit = async (values: FormValues, { setSubmitting }: FormikHelpers<FormValues>) => {
+  //   console.log({ values, setSubmitting }); 
 
   //   try {
-  //     const newUser = { email, username, password };
+  //     const newUser = { values };
   //     await axios.post("http://localhost:5000/users/register", newUser);
   //     console.log(newUser); 
   //     navigate("/");
@@ -75,17 +60,8 @@ const Signup: React.FC<{}> = () => {
   //     alert('Cold not create new user!');
   //   }
 
-  // const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   setEmail(e.target.value); 
-  // };
-
-  // const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   setUsername(e.target.value); 
-  // };
-
-  // const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   setPassword(e.target.value); 
-  // };
+  //   setTimeout(() => setSubmitting(false), 2000);
+  // }
 
   return (
     <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
@@ -100,25 +76,22 @@ const Signup: React.FC<{}> = () => {
         <Formik
           initialValues={initialValues}
           validationSchema={signupSchema}
-          onSubmit={ async (values) => {
+          onSubmit={ async (values: FormValues) => {
             try {
-              const newUser = { values };
-              await axios.post("http://localhost:5000/v0/users/auth/register", newUser, {
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Access-Control-Allow-Origin': '*',
-                  'Access-Control-Allow-Headers': 'Content-Type',
-                  'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT'
-                }
-              });
-              console.log(newUser); 
+              const newUser = {
+                email: values.email,
+                username: values.username,
+                password: values.password
+              };
+              await axios.post("http://localhost:5000/v0/users/auth/register", newUser);
               navigate("/");
             } catch (e) {
-              alert('Cold not create new user!');
+              
+              alert('Could not create new user!');
             }
           }}
         >
-          {( {values, isSubmitting }) => (
+          {( {values }) => (
             <Form size="large">
               <Segment stacked>
                 <Input 

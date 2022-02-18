@@ -29,8 +29,8 @@ const mongodbURL = c.url;
   app.use(bodyParser.urlencoded({ extended: true }));
 
   app.use((req, res,next) => {
-    res.header("Access-Control-Allow-Origin", c.localhost);
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With,Content-Type, Accept");
     next(); 
   });
 

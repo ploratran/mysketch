@@ -67,9 +67,16 @@ router.post("/register", async (req: Request, res: Response) => {
     }
 
     // find user by email, if existed, return user already existed
-    const user = await UserModel.findOne({ email: req.body.email }); 
-    if (user) {
-        return res.status(422).send({ auth: false, message: "User already existed." }); 
+    const existedEmail = await UserModel.findOne({ email: req.body.email }); 
+    if (existedEmail) {
+        
+        return res.status(422).send({ auth: false, message: "This email already existed." }); 
+    }
+
+    // find user by username, if existed, return user already existed:
+    const existedUsername = await UserModel.findOne({ username: req.body.username });
+    if (existedUsername) {
+        return res.status(422).send({ auth: false, message: "This username already existed." });
     }
 
     // generate hashed password using bcrypt: 
