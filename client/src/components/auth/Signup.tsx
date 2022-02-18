@@ -43,10 +43,49 @@ const Signup: React.FC<{}> = () => {
     //   .required("Confirm password is required"),
   });
 
-  const handleOnSubmit = (values: FormValues, { setSubmitting }: FormikHelpers<FormValues>) => {
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState(""); 
+  const navigate = useNavigate();
+
+  const handleOnSubmit = async (values: FormValues, { setSubmitting }: FormikHelpers<FormValues>) => {
     console.log({ values, setSubmitting }); 
+
+    try {
+      const newUser = { values };
+      await axios.post("http://localhost:5000/users/register", newUser);
+      console.log(newUser); 
+      navigate("/");
+    } catch (e) {
+      alert('Cold not create new user!');
+    }
+
     setTimeout(() => setSubmitting(false), 2000);
   }
+  // use with Formik onSubmit()
+  // const handleSubmit = async (e: any) => {
+  //   e.preventDefault(); 
+
+  //   try {
+  //     const newUser = { email, username, password };
+  //     await axios.post("http://localhost:5000/users/register", newUser);
+  //     console.log(newUser); 
+  //     navigate("/");
+  //   } catch (e) {
+  //     alert('Cold not create new user!');
+  //   }
+
+  // const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setEmail(e.target.value); 
+  // };
+
+  // const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setUsername(e.target.value); 
+  // };
+
+  // const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setPassword(e.target.value); 
+  // };
 
   return (
     <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
@@ -61,38 +100,60 @@ const Signup: React.FC<{}> = () => {
         <Formik
           initialValues={initialValues}
           validationSchema={signupSchema}
-          onSubmit={handleOnSubmit}
+          onSubmit={ async (values) => {
+            try {
+              const newUser = { values };
+              await axios.post("http://localhost:5000/v0/users/auth/register", newUser, {
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Access-Control-Allow-Origin': '*',
+                  'Access-Control-Allow-Headers': 'Content-Type',
+                  'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT'
+                }
+              });
+              console.log(newUser); 
+              navigate("/");
+            } catch (e) {
+              alert('Cold not create new user!');
+            }
+          }}
         >
-          <Form size="large">
-            <Segment stacked>
-              <Input 
-                icon='mail'
-                iconPosition='left'
-                type="emai"
-                name="email"
-                placeholder="Email"
-                errorPrompt
-              />
-              <Input 
-                icon='user'
-                iconPosition='left'
-                name="username"
-                placeholder="username"
-                errorPrompt
-              />
-              <Input
-                icon='lock'
-                iconPosition='left'
-                name="password"
-                type="password"
-                placeholder="Password"
-                errorPrompt
-              />
-              <SubmitButton type="submit" color='teal' fluid size='large'>
-                Sign up
-              </SubmitButton>
-          </Segment>
-          </Form>
+          {( {values, isSubmitting }) => (
+            <Form size="large">
+              <Segment stacked>
+                <Input 
+                  icon='mail'
+                  iconPosition='left'
+                  type="emai"
+                  name="email"
+                  value={values.email}
+                  
+                  placeholder="Email"
+                  errorPrompt
+                />
+                <Input 
+                  icon='user'
+                  iconPosition='left'
+                  name="username"
+                  value={values.username}
+                  placeholder="username"
+                  errorPrompt
+                />
+                <Input
+                  icon='lock'
+                  iconPosition='left'
+                  name="password"
+                  value={values.password}
+                  type="password"
+                  placeholder="Password"
+                  errorPrompt
+                />
+                <SubmitButton type="submit" color='teal' fluid size='large'>
+                  Sign up
+                </SubmitButton>
+              </Segment>
+            </Form>
+          )}
         </Formik>
 
         <Message>

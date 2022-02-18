@@ -1,7 +1,7 @@
-import e, { Router, Request, Response } from "express"; 
+import { Router, Request, Response } from "express"; 
 import { UserModel } from "../models/UserModel"; 
 import { UserType } from "../models/UserType";
-import * as c from "../../../../config/config";
+import { config } from "../../../../config/config";
 import * as jwt from "jsonwebtoken";
 import * as bcrypt from "bcrypt"; 
 import { NextFunction } from "connect";
@@ -22,7 +22,7 @@ async function comparePasswords(plaintTextPassword: string, hash: string): Promi
 
 function generateJWT(user: UserType): string {
     console.log("generateJWT");
-    return jwt.sign({ user }, c.config.jwt); // pass jwt payload as object
+    return jwt.sign({ user }, config.jwt); // pass jwt payload as object
 }
 
 export function requireAuth(req: Request, res: Response, next: NextFunction) {
@@ -36,7 +36,7 @@ export function requireAuth(req: Request, res: Response, next: NextFunction) {
     }
 
     const token = token_bearer[1];
-    return jwt.verify(token, c.config.jwt, (err, decoded) => {
+    return jwt.verify(token, config.jwt, (err, decoded) => {
         if (err) {
             return res.status(500).send({ auth: false, message: "Failed to authenticate." });
         }
