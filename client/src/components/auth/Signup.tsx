@@ -45,6 +45,8 @@ const Signup: React.FC<{}> = ({ children }) => {
   });
 
   const navigate = useNavigate();
+  // @ts-ignore
+  const { user, setUser } = useContext(UserContext); 
 
   return (
     <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
@@ -67,7 +69,8 @@ const Signup: React.FC<{}> = ({ children }) => {
                 password: values.password
               };
               const response = await axios.post("http://localhost:5000/v0/users/auth/register", newUser);
-              console.log(response); 
+              console.log(response.data.user); 
+              setUser(response.data.user); 
               navigate("/");
             } catch (e) {
               alert('Could not create new user!');

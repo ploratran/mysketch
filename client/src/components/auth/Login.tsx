@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Segment, Grid, Header, Message } from 'semantic-ui-react';
 import { Link } from "react-router-dom";
 import { Formik, FormikHelpers } from "formik"; 
 import * as Yup from "yup"; 
 import { Form, Input, SubmitButton } from 'formik-semantic-ui-react';
 import axios from "axios";
+import { UserContext } from "../context/UserContext";
 
 interface FormValues {
   username: string, 
@@ -31,10 +32,8 @@ const Login: React.FC<{}> = () => {
       )
   });
 
-  const handleOnSubmit = (values: FormValues, { setSubmitting }: FormikHelpers<FormValues>) => {
-    console.log({ values, setSubmitting }); 
-    setTimeout(() => setSubmitting(false), 2000);
-  }
+  // @ts-ignore
+  const { user, setUser } = useContext(UserContext); 
 
   return (
     <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
@@ -57,7 +56,8 @@ const Login: React.FC<{}> = () => {
             };
 
             const response = await axios.post("http://localhost:5000/v0/users/auth/login", loginUser);
-            console.log(response); 
+            console.log(response.data.user.username); 
+            setUser(response.data.user.username); 
           } catch (e) {
             alert(`Could not login with user ${values.username}`);
           }
