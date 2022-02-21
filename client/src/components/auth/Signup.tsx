@@ -1,12 +1,13 @@
-import React, { useState, useCallback } from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Segment, Grid, Header, Message } from 'semantic-ui-react';
 import { Link } from "react-router-dom";
-import { Formik,FormikHelpers } from "formik"; 
+import { Formik } from "formik"; 
 import * as Yup from "yup"; 
 import { Form, Input, SubmitButton } from 'formik-semantic-ui-react';
 import axios from "axios"; 
 import { register } from "../../api/auth-api";
+import { UserContext } from "../context/UserContext";
 
 interface FormValues {
   email: string,
@@ -15,7 +16,7 @@ interface FormValues {
   // cpassword: string,
 }
 
-const Signup: React.FC<{}> = () => {
+const Signup: React.FC<{}> = ({ children }) => {
 
   const initialValues: FormValues = {
     email: '',
@@ -43,25 +44,7 @@ const Signup: React.FC<{}> = () => {
     //   .required("Confirm password is required"),
   });
 
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState(""); 
   const navigate = useNavigate();
-
-  // const handleOnSubmit = async (values: FormValues, { setSubmitting }: FormikHelpers<FormValues>) => {
-  //   console.log({ values, setSubmitting }); 
-
-  //   try {
-  //     const newUser = { values };
-  //     await axios.post("http://localhost:5000/users/register", newUser);
-  //     console.log(newUser); 
-  //     navigate("/");
-  //   } catch (e) {
-  //     alert('Cold not create new user!');
-  //   }
-
-  //   setTimeout(() => setSubmitting(false), 2000);
-  // }
 
   return (
     <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
@@ -83,10 +66,10 @@ const Signup: React.FC<{}> = () => {
                 username: values.username,
                 password: values.password
               };
-              await axios.post("http://localhost:5000/v0/users/auth/register", newUser);
+              const response = await axios.post("http://localhost:5000/v0/users/auth/register", newUser);
+              console.log(response); 
               navigate("/");
             } catch (e) {
-              
               alert('Could not create new user!');
             }
           }}

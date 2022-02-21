@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Formik, FormikHelpers } from "formik"; 
 import * as Yup from "yup"; 
 import { Form, Input, SubmitButton } from 'formik-semantic-ui-react';
+import axios from "axios";
 
 interface FormValues {
   username: string, 
@@ -48,9 +49,22 @@ const Login: React.FC<{}> = () => {
       <Formik
         initialValues={initialValues}
         validationSchema={loginSchema}
-        onSubmit={handleOnSubmit}
+        onSubmit={async (values: FormValues) => {
+          try {
+            const loginUser = {
+              username: values.username, 
+              password: values.password,
+            };
+
+            const response = await axios.post("http://localhost:5000/v0/users/auth/login", loginUser);
+            console.log(response); 
+          } catch (e) {
+            alert(`Could not login with user ${values.username}`);
+          }
+        }}
       >
-        <Form size='large'>
+        {( {values} ) => (
+          <Form size='large'>
           <Segment stacked>
             <Input 
                 icon='user'
@@ -72,7 +86,8 @@ const Login: React.FC<{}> = () => {
               Login
             </SubmitButton>
           </Segment>
-        </Form>
+          </Form>
+        )}
       </Formik>  
       
       <Message>
