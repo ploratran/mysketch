@@ -1,12 +1,13 @@
-import React, { useState, useCallback } from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Segment, Grid, Header, Message } from 'semantic-ui-react';
 import { Link } from "react-router-dom";
-import { Formik, FormikHelpers } from "formik"; 
+import { Formik } from "formik"; 
 import * as Yup from "yup"; 
 import { Form, Input, SubmitButton } from 'formik-semantic-ui-react';
 import axios from "axios"; 
 import { register } from "../../api/auth-api";
+import { UserContext } from "../context/UserContext";
 
 interface FormValues {
   email: string,
@@ -43,10 +44,9 @@ const Signup: React.FC<{}> = () => {
     //   .required("Confirm password is required"),
   });
 
-  const handleOnSubmit = (values: FormValues, { setSubmitting }: FormikHelpers<FormValues>) => {
-    console.log({ values, setSubmitting }); 
-    setTimeout(() => setSubmitting(false), 2000);
-  }
+  const navigate = useNavigate();
+  // @ts-ignore
+  const { userData, setUserData } = useContext(UserContext); 
 
   return (
     <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
@@ -61,38 +61,61 @@ const Signup: React.FC<{}> = () => {
         <Formik
           initialValues={initialValues}
           validationSchema={signupSchema}
-          onSubmit={handleOnSubmit}
+          onSubmit={ async (values: FormValues) => {
+            try {
+              const newUser = {
+                email: values.email,
+                username: values.username,
+                password: values.password
+              };
+              const response = await axios.post("http://localhost:5000/v0/users/auth/register", newUser);
+              console.log(response.data.user.username); 
+              setUserData({
+                token: response.data.token,
+                user: response.data.user
+              }); 
+              navigate("/");
+            } catch (e) {
+              alert('Could not create new user!');
+            }
+          }}
         >
-          <Form size="large">
-            <Segment stacked>
-              <Input 
-                icon='mail'
-                iconPosition='left'
-                type="emai"
-                name="email"
-                placeholder="Email"
-                errorPrompt
-              />
-              <Input 
-                icon='user'
-                iconPosition='left'
-                name="username"
-                placeholder="username"
-                errorPrompt
-              />
-              <Input
-                icon='lock'
-                iconPosition='left'
-                name="password"
-                type="password"
-                placeholder="Password"
-                errorPrompt
-              />
-              <SubmitButton type="submit" color='teal' fluid size='large'>
-                Sign up
-              </SubmitButton>
-          </Segment>
-          </Form>
+          {( {values }) => (
+            <Form size="large">
+              <Segment stacked>
+                <Input 
+                  icon='mail'
+                  iconPosition='left'
+                  type="emai"
+                  name="email"
+                  value={values.email}
+                  
+                  placeholder="Email"
+                  errorPrompt
+                />
+                <Input 
+                  icon='user'
+                  iconPosition='left'
+                  name="username"
+                  value={values.username}
+                  placeholder="username"
+                  errorPrompt
+                />
+                <Input
+                  icon='lock'
+                  iconPosition='left'
+                  name="password"
+                  value={values.password}
+                  type="password"
+                  placeholder="Password"
+                  errorPrompt
+                />
+                <SubmitButton type="submit" color='teal' fluid size='large'>
+                  Sign up
+                </SubmitButton>
+              </Segment>
+            </Form>
+          )}
         </Formik>
 
         <Message>

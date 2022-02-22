@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Segment, Grid, Header, Message } from 'semantic-ui-react';
-import { Link } from "react-router-dom";
-import { Formik, FormikHelpers } from "formik"; 
+import { Link, useNavigate } from "react-router-dom";
+import { Formik } from "formik"; 
 import * as Yup from "yup"; 
 import { Form, Input, SubmitButton } from 'formik-semantic-ui-react';
+import axios from "axios";
+import { UserContext } from "../context/UserContext";
 
 interface FormValues {
   username: string, 
@@ -30,10 +32,9 @@ const Login: React.FC<{}> = () => {
       )
   });
 
-  const handleOnSubmit = (values: FormValues, { setSubmitting }: FormikHelpers<FormValues>) => {
-    console.log({ values, setSubmitting }); 
-    setTimeout(() => setSubmitting(false), 2000);
-  }
+  const navigate = useNavigate();
+  // @ts-ignore
+  const { userData, setUserData } = useContext(UserContext); 
 
   return (
     <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
@@ -48,14 +49,33 @@ const Login: React.FC<{}> = () => {
       <Formik
         initialValues={initialValues}
         validationSchema={loginSchema}
-        onSubmit={handleOnSubmit}
+        onSubmit={async (values: FormValues) => {
+          try {
+            const loginUser = {
+              username: values.username, 
+              password: values.password,
+            };
+
+            const response = await axios.post("http://localhost:5000/v0/users/auth/login", loginUser);
+            console.log(response.data.user.username); 
+            setUserData({
+              token: response.data.token,
+              user: response.data.user
+            });
+            navigate("/home");
+          } catch (e) {
+            alert(`Could not login with user ${values.username}`);
+          }
+        }}
       >
-        <Form size='large'>
+        {( {values} ) => (
+          <Form size='large'>
           <Segment stacked>
             <Input 
                 icon='user'
                 iconPosition='left'
                 name="username"
+                value={values.username}
                 placeholder="username"
                 errorPrompt
             />
@@ -63,6 +83,7 @@ const Login: React.FC<{}> = () => {
               icon='lock'
               iconPosition='left'
               name="password"
+              value={values.password}
               type="password"
               placeholder="Password"
               errorPrompt
@@ -72,7 +93,8 @@ const Login: React.FC<{}> = () => {
               Login
             </SubmitButton>
           </Segment>
-        </Form>
+          </Form>
+        )}
       </Formik>  
       
       <Message>
