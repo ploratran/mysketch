@@ -6,8 +6,11 @@ import { Route, Routes } from "react-router-dom";
 import { UserContext } from "./components/context/UserContext";
 
 const App = () => {
-  const [user, setUser] = useState("");
-  const value = useMemo(() => ({ user, setUser }), [user, setUser]); 
+  const [userData, setUserData] = useState({
+    token: undefined,
+    user: undefined,
+  });
+  const value = useMemo(() => ({ userData, setUserData }), [userData, setUserData]); 
 
   return (
     // @ts-ignore

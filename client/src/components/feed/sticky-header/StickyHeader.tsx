@@ -1,8 +1,13 @@
 // sticky header includes Home button, search bar, profile, upload, feed, messenger buttons
-import React from "react";
+import React, { useContext } from "react";
 import { Menu, Dropdown, Container, Icon, Search } from "semantic-ui-react";
+import { UserContext } from "../../context/UserContext";
 
-export default function StickyHeader() {
+export default function StickyHeader(props: any) {
+    
+    // @ts-ignore
+    const { userData, setUserData } = useContext(UserContext); 
+
     return (
         <Menu fixed="top" borderless>
             <Container text> 
@@ -31,7 +36,7 @@ export default function StickyHeader() {
                         <Dropdown.Menu>
                             <Dropdown.Item>
                                 <Icon name='user circle' />
-                                Profile
+                                {userData.username}
                             </Dropdown.Item>
 
                             <Dropdown.Divider />

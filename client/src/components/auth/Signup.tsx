@@ -16,7 +16,7 @@ interface FormValues {
   // cpassword: string,
 }
 
-const Signup: React.FC<{}> = ({ children }) => {
+const Signup: React.FC<{}> = () => {
 
   const initialValues: FormValues = {
     email: '',
@@ -46,7 +46,7 @@ const Signup: React.FC<{}> = ({ children }) => {
 
   const navigate = useNavigate();
   // @ts-ignore
-  const { user, setUser } = useContext(UserContext); 
+  const { userData, setUserData } = useContext(UserContext); 
 
   return (
     <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
@@ -69,8 +69,11 @@ const Signup: React.FC<{}> = ({ children }) => {
                 password: values.password
               };
               const response = await axios.post("http://localhost:5000/v0/users/auth/register", newUser);
-              console.log(response.data.user); 
-              setUser(response.data.user); 
+              console.log(response.data.user.username); 
+              setUserData({
+                token: response.data.token,
+                user: response.data.user
+              }); 
               navigate("/");
             } catch (e) {
               alert('Could not create new user!');

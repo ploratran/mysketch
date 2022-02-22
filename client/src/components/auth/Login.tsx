@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Segment, Grid, Header, Message } from 'semantic-ui-react';
-import { Link } from "react-router-dom";
-import { Formik, FormikHelpers } from "formik"; 
+import { Link, useNavigate } from "react-router-dom";
+import { Formik } from "formik"; 
 import * as Yup from "yup"; 
 import { Form, Input, SubmitButton } from 'formik-semantic-ui-react';
 import axios from "axios";
@@ -32,8 +32,9 @@ const Login: React.FC<{}> = () => {
       )
   });
 
+  const navigate = useNavigate();
   // @ts-ignore
-  const { user, setUser } = useContext(UserContext); 
+  const { userData, setUserData } = useContext(UserContext); 
 
   return (
     <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
@@ -57,7 +58,11 @@ const Login: React.FC<{}> = () => {
 
             const response = await axios.post("http://localhost:5000/v0/users/auth/login", loginUser);
             console.log(response.data.user.username); 
-            setUser(response.data.user.username); 
+            setUserData({
+              token: response.data.token,
+              user: response.data.user
+            });
+            navigate("/home");
           } catch (e) {
             alert(`Could not login with user ${values.username}`);
           }
@@ -70,6 +75,7 @@ const Login: React.FC<{}> = () => {
                 icon='user'
                 iconPosition='left'
                 name="username"
+                value={values.username}
                 placeholder="username"
                 errorPrompt
             />
@@ -77,6 +83,7 @@ const Login: React.FC<{}> = () => {
               icon='lock'
               iconPosition='left'
               name="password"
+              value={values.password}
               type="password"
               placeholder="Password"
               errorPrompt
