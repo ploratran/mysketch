@@ -1,5 +1,6 @@
 // sticky header includes Home button, search bar, profile, upload, feed, messenger buttons
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { Menu, Dropdown, Container, Icon, Search } from "semantic-ui-react";
 import { UserContext } from "../../context/UserContext";
 
@@ -41,7 +42,12 @@ export default function StickyHeader(props: any) {
 
                             <Dropdown.Divider />
 
-                            <Dropdown.Item icon={{ name: 'remove'}}>
+                            <Dropdown.Item 
+                                icon={{ name: 'remove'}}
+                                as={Link}
+                                to={'/'}
+                                onClick={() => setUserData(null)}
+                            >
                                 Logout
                             </Dropdown.Item>
                         </Dropdown.Menu>
